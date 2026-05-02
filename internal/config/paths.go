@@ -58,7 +58,11 @@ func RawStreamSampleRoot() string {
 }
 
 func ChatHistoryPath() string {
-	return ResolvePath("DS2API_CHAT_HISTORY_PATH", "data/chat_history.json")
+	defaultRel := "data/chat_history.json"
+	if IsVercel() {
+		defaultRel = "/tmp/chat_history.json"
+	}
+	return ResolvePath("DS2API_CHAT_HISTORY_PATH", defaultRel)
 }
 
 func StaticAdminDir() string {
